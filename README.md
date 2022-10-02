@@ -1,1 +1,1 @@
-# rust-ray-tracer-v2
+# C++ Ray Tracer
