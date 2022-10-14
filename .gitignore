@@ -33,3 +33,5 @@
 
 jbtracer/
 /build
+
+*.pdf
