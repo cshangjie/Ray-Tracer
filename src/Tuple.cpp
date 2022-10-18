@@ -16,3 +16,40 @@ bool Tuple::IsPoint() const{
 bool Tuple::IsVector() const{
   return equals(0.0, w_);
 }
+
+Tuple operator+(const Tuple lhs, const Tuple rhs){
+    const auto tuplePoint = new Tuple(
+      lhs.x() - rhs.x(), 
+      lhs.y() - rhs.y(), 
+      lhs.z() - rhs.z(), 
+      lhs.w() - rhs.w());
+}
+Tuple operator-(const Tuple lhs, const Tuple rhs){
+    const auto tuplePoint = new Tuple(
+      lhs.x() - rhs.x(), 
+      lhs.y() - rhs.y(), 
+      lhs.z() - rhs.z(), 
+      lhs.w() - rhs.w());
+}
+Tuple operator*(const Tuple lhs, const Tuple rhs){
+    const auto tuplePoint = new Tuple(
+      lhs.x() - rhs.x(), 
+      lhs.y() - rhs.y(), 
+      lhs.z() - rhs.z(), 
+      lhs.w() - rhs.w());
+}
+Tuple operator/(const Tuple lhs, const Tuple rhs){
+    const auto tuplePoint = new Tuple(
+      lhs.x() - rhs.x(), 
+      lhs.y() - rhs.y(), 
+      lhs.z() - rhs.z(), 
+      lhs.w() - rhs.w());
+}
+// Tuple operator==(const Tuple lhs, const Tuple rhs){
+//     const auto tuplePoint = new Tuple(
+//       lhs.x() - rhs.x(), 
+//       lhs.y() - rhs.y(), 
+//       lhs.z() - rhs.z(), 
+//       lhs.w() - rhs.w());
+// }
+
