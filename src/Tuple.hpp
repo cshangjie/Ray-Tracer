@@ -1,9 +1,10 @@
 #ifndef TUPLE_HPP
 #define TUPLE_HPP
 
-class Tuple {
- public:
-  Tuple() {};
+class Tuple
+{
+public:
+  Tuple(){};
   Tuple(float x, float y, float z, float w);
   ~Tuple() = default;
 
@@ -15,8 +16,11 @@ class Tuple {
 
   bool IsPoint() const;
   bool IsVector() const;
+  float Magnitude() const;
+  Tuple Normalize() const;
+  float Dot();
 
- private:
+private:
   float x_, y_, z_, w_;
 };
 
