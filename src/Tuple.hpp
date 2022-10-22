@@ -18,7 +18,8 @@ public:
   bool IsVector() const;
   float Magnitude() const;
   Tuple Normalize() const;
-  float Dot();
+  float Dot(Tuple secondTuple) const;
+  Tuple Cross(Tuple secondTuple) const;
 
 private:
   float x_, y_, z_, w_;
