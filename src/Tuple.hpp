@@ -3,6 +3,9 @@
 
 class Tuple
 {
+private:
+  float x_, y_, z_, w_;
+
 public:
   Tuple(){};
   Tuple(float x, float y, float z, float w);
@@ -20,9 +23,6 @@ public:
   Tuple Normalize() const;
   float Dot(Tuple secondTuple) const;
   Tuple Cross(Tuple secondTuple) const;
-
-private:
-  float x_, y_, z_, w_;
 };
 
 Tuple operator+(const Tuple lhs, const Tuple rhs);

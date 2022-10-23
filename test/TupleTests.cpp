@@ -1,6 +1,8 @@
 #include <gtest/gtest.h>
+#include <cmath>
 #include "../src/Tuple.hpp"
 #include "../src/Math.hpp"
+
 
 
 class TupleTest : public ::testing::Test {
@@ -9,7 +11,10 @@ class TupleTest : public ::testing::Test {
   ~TupleTest() {};
 };
 
-TEST(TupleTest, TestPoint){
+/*
+  Constructor Tests & Tuple type checks
+*/
+TEST(TupleTest, Test_IsPoint_IsVector){
   const auto tuplePoint = new Tuple(3.4, -2.3, 1.2, 1.0);
 
   EXPECT_FLOAT_EQ(tuplePoint->x(), 3.4);
@@ -20,9 +25,6 @@ TEST(TupleTest, TestPoint){
   EXPECT_TRUE(tuplePoint->IsPoint());
   EXPECT_FALSE(tuplePoint->IsVector());
 
-}
-
-TEST(TupleTest, TestVec) {
   const auto tupleVec = new Tuple(3.4, -2.3, 1.2, 0.0);
   
   EXPECT_FLOAT_EQ(tupleVec->x(), 3.4);
@@ -33,6 +35,35 @@ TEST(TupleTest, TestVec) {
   EXPECT_TRUE(tupleVec->IsVector());
   EXPECT_FALSE(tupleVec->IsPoint());
 }
+
+TEST(TupleTest, Test_CreatePoint){
+  const auto point = Point(1.1, 2.2, 3.3);
+
+  EXPECT_FLOAT_EQ(point.x(), 1.1);
+  EXPECT_FLOAT_EQ(point.y(), 2.2);
+  EXPECT_FLOAT_EQ(point.z(), 3.3);
+  EXPECT_FLOAT_EQ(point.w(), 1.0);
+  
+  EXPECT_TRUE(point.IsPoint());
+  EXPECT_FALSE(point.IsVector());
+
+}
+
+TEST(TupleTest, Test_CreateVector){
+  const auto vec = Point(1.1, 2.2, 3.3);
+
+  EXPECT_FLOAT_EQ(vec.x(), 1.1);
+  EXPECT_FLOAT_EQ(vec.y(), 2.2);
+  EXPECT_FLOAT_EQ(vec.z(), 3.3);
+  EXPECT_FLOAT_EQ(vec.w(), 1.0);
+  
+  EXPECT_TRUE(vec.IsPoint());
+  EXPECT_FALSE(vec.IsVector());
+
+}
+/*
+  Operator Testing
+*/
 
 TEST(TupleTest, TestAdd) {
   const auto tuple1 = Tuple(3.4, -2.3, 1.2, 0.0);
@@ -56,6 +87,13 @@ TEST(TupleTest, TestSubtract) {
   EXPECT_FLOAT_EQ(resultTuple.w(), 0.0 - 1.0);
 }
 
+TEST(TupleTest, SubVectorFromZeroVector) {
+  const auto zero = Vector(0, 0, 0);
+  const auto v = Vector(1, -2, 3);
+
+  ASSERT_TRUE(zero - v == Vector(-1, 2, -3));
+}
+
 TEST(TupleTest, TestNegate) {
   const auto tuple = Tuple(3.4, -2.3, 1.2, 0.0);
   const auto negatedTuple = -tuple;
@@ -68,13 +106,24 @@ TEST(TupleTest, TestNegate) {
 TEST(TupleTest, TestScalarMultiply) {
   const auto tuple = Tuple(3.4, -2.3, 1.2, 0.0);
   
-  const auto resultTuple = tuple * 2.35;
+  const auto resultTuple = tuple * 2;
 
-  EXPECT_FLOAT_EQ(resultTuple.x(), 3.4 * 2.35);
-  EXPECT_FLOAT_EQ(resultTuple.y(), -2.3 * 2.35);
-  EXPECT_FLOAT_EQ(resultTuple.z(), 1.2 * 2.35);
+  EXPECT_FLOAT_EQ(resultTuple.x(), 6.8);
+  EXPECT_FLOAT_EQ(resultTuple.y(), -4.6);
+  EXPECT_FLOAT_EQ(resultTuple.z(), 2.4);
   EXPECT_FLOAT_EQ(resultTuple.w(), 0.0);
 }
+TEST(TupleTest, TestFractionScalarMultiply) {
+  const auto tuple = Tuple(3.4, -2.3, 1.2, 0.0);
+  
+  const auto resultTuple = tuple * 0.35;
+
+  EXPECT_FLOAT_EQ(resultTuple.x(), 3.4 * 0.35);
+  EXPECT_FLOAT_EQ(resultTuple.y(), -2.3 * 0.35);
+  EXPECT_FLOAT_EQ(resultTuple.z(), 1.2 * 0.35);
+  EXPECT_FLOAT_EQ(resultTuple.w(), 0.0);
+}
+
 
 TEST(TupleTest, TestScalarDivide) {
   const auto tuple = Tuple(3.4, -2.3, 1.2, 0.0);
@@ -92,3 +141,34 @@ TEST(TupleTest, TestEquality) {
   // properly accounts of float precision
   ASSERT_FALSE(tuple1 == (tuple2 * float(1.0001)));
 }
+
+TEST(TupleTest, TestMagnitude) {
+  const auto tuple1 = Tuple(1, 0, 0, 0.0);
+  const auto magnitude1 = tuple1.Magnitude();
+  ASSERT_FLOAT_EQ(tuple1.Magnitude(), 1);
+
+  const auto tuple2 = Tuple(1, 0, 0, 0.0);
+  ASSERT_FLOAT_EQ(tuple2.Magnitude(), 1);
+  
+  const auto tuple3 = Tuple(0, 0, 1, 0.0);
+  ASSERT_FLOAT_EQ(tuple3.Magnitude(), 1);
+
+  const auto tuple4 = Tuple(3.4, -2.3, 1.2, 0.0);
+  const auto magnitude = std::sqrt((3.4 * 3.4) + (-2.3 * -2.3) + (1.2 * 1.2) + (0.0 * 0.0));
+  ASSERT_FLOAT_EQ(tuple4.Magnitude(), magnitude);
+}
+TEST(TupleTest, TestNormalize) {
+  const auto tuple1 = Tuple(4, 0, 0, 0);
+  ASSERT_TRUE(tuple1.Normalize() == Tuple(1, 0, 0, 0));
+
+  const auto tuple2 = Tuple(4, 0, 0, 0);
+  ASSERT_TRUE(tuple2.Normalize() == Tuple(1, 0, 0, 0));
+}
+// TEST(TupleTest, TestDot) {
+//   const auto tuple1 = Tuple(3.4, -2.3, 1.2, 0.0);
+//   const auto tuple2 = Tuple(3.4, -2.3, 1.2, 0.0);
+//   ASSERT_TRUE(tuple1 == tuple2);
+//   // properly accounts of float precision
+//   ASSERT_FALSE(tuple1 == (tuple2 * float(1.0001)));
+// }
+
