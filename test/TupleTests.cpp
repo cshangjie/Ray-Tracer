@@ -158,17 +158,15 @@ TEST(TupleTest, TestMagnitude) {
   ASSERT_FLOAT_EQ(tuple4.Magnitude(), magnitude);
 }
 TEST(TupleTest, TestNormalize) {
-  const auto tuple1 = Tuple(4, 0, 0, 0);
-  ASSERT_TRUE(tuple1.Normalize() == Tuple(1, 0, 0, 0));
+  const auto vec1 = Vector(4, 0, 0);
+  ASSERT_TRUE(vec1.Normalize() == Vector(1, 0, 0));
 
-  const auto tuple2 = Tuple(4, 0, 0, 0);
-  ASSERT_TRUE(tuple2.Normalize() == Tuple(1, 0, 0, 0));
+  const auto vec2 = Vector(1, 2, 3);
+  ASSERT_TRUE(vec2.Normalize() == Vector(0.26726, 0.53452, 0.80178));
 }
-// TEST(TupleTest, TestDot) {
-//   const auto tuple1 = Tuple(3.4, -2.3, 1.2, 0.0);
-//   const auto tuple2 = Tuple(3.4, -2.3, 1.2, 0.0);
-//   ASSERT_TRUE(tuple1 == tuple2);
-//   // properly accounts of float precision
-//   ASSERT_FALSE(tuple1 == (tuple2 * float(1.0001)));
-// }
+TEST(TupleTest, TestDot) {
+  const auto vec1 = Vector(1, 2, 3);
+  const auto vec2 = Vector(2, 3, 4);
+  ASSERT_FLOAT_EQ(vec1.Dot(vec2), 20);
+}
 
