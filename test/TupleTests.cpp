@@ -3,6 +3,8 @@
 #include <iostream>
 #include "../src/Tuple.h"
 #include "../src/Math.h"
+#include "../src/Vector.h"
+#include "../src/Point.h"
 
 class TupleTest : public ::testing::Test
 {
