@@ -1,5 +1,5 @@
-#include "Tuple.hpp"
-#include "Math.hpp"
+#include "Tuple.h"
+#include "Math.h"
 #include <string>
 #include <cmath>
 
@@ -13,14 +13,19 @@ Tuple::Tuple(float x, float y, float z, float w)
 
 bool Tuple::IsPoint() const
 {
-  return equals(1.0, w_);
+  return Equals(1.0, w_);
 }
 
 bool Tuple::IsVector() const
 {
-  return equals(0.0, w_);
+  return Equals(0.0, w_);
 }
 
+/**
+ * @brief not currently used but returns the magnitude used in vector normalizing
+ * 
+ * @return float 
+ */
 float Tuple::Magnitude() const
 {
   return std::sqrt(this->x() * this->x() +
@@ -31,8 +36,11 @@ float Tuple::Magnitude() const
 
 Tuple Tuple::Normalize() const
 {
-  float mag = this->Magnitude();
-  return Tuple(this->x() / mag, this->y() / mag, this->z() / mag, this->w() / mag);
+  float invSqrt = FastInvSqrt(this->x() * this->x() +
+                   this->y() * this->y() +
+                   this->z() * this->z() +
+                   this->w() * this->w());
+  return Tuple(this->x() * invSqrt, this->y() * invSqrt, this->z() * invSqrt, this->w() / invSqrt);
 }
 
 float Tuple::Dot(Tuple tuple) const
@@ -79,9 +87,9 @@ Tuple operator/(const Tuple tuple, float scalar)
 }
 bool operator==(const Tuple lhs, const Tuple rhs)
 {
-  return equals(lhs.x(), rhs.x()) &&
-         equals(lhs.y(), rhs.y()) &&
-         equals(lhs.z(), rhs.z());
+  return Equals(lhs.x(), rhs.x()) &&
+         Equals(lhs.y(), rhs.y()) &&
+         Equals(lhs.z(), rhs.z());
 }
 Tuple operator-(const Tuple tuple)
 {

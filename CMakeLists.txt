@@ -15,11 +15,15 @@ add_subdirectory(test)
 add_subdirectory(lib/googletest)
 
 set(Headers
-    src/Tuple.hpp
+    src/Tuple.h
+    src/Color.h
+    src/Vector.h
 )
 
 set(Sources
     src/Tuple.cpp
+    src/Color.h
+    src/Vector.h
 )
 
 add_library(${This} STATIC ${Sources} ${Headers})
