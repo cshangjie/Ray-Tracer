@@ -4,9 +4,12 @@ set(This RayTracer_Tests)
 
 set(Sources
     TupleTests.cpp
+    VectorTests.cpp
+    ColorTests.cpp
 )
 
 add_executable(${This} ${Sources})
+
 target_link_libraries(${This} PUBLIC gtest_main RayTracer primitive_lib)
 
 
