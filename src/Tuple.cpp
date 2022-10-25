@@ -95,11 +95,3 @@ Tuple operator-(const Tuple tuple)
 {
   return Tuple(-tuple.x(), -tuple.y(), -tuple.z(), -tuple.w());
 }
-
-Tuple Point(float x, float y, float z) {
-  return Tuple(x, y, z, 1.0);
-}
-
-Tuple Vector(float x, float y, float z) {
-  return Tuple(x, y, z, 0.0);
-}

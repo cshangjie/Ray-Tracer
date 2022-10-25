@@ -1,5 +1,5 @@
-#ifndef TUPLE_HPP
-#define TUPLE_HPP
+#ifndef RT_TUPLE_H_
+#define RT_TUPLE_H_
 
 class Tuple
 {
@@ -32,7 +32,4 @@ Tuple operator/(const Tuple t, float div);
 Tuple operator-(const Tuple neg);
 bool operator==(const Tuple lhs, const Tuple rhs);
 
-Tuple Point(float x, float y, float z);
-Tuple Vector(float x, float y, float z);
-
-#endif /* TUPLE_HPP */
+#endif /* RT_TUPLE_H_ */
