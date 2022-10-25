@@ -5,7 +5,9 @@ set(This RayTracer_Tests)
 set(Sources
     TupleTests.cpp
     VectorTests.cpp
+    PointTests.cpp
     ColorTests.cpp
+    CanvasTests.cpp
 )
 
 add_executable(${This} ${Sources})

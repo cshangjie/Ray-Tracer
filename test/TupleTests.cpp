@@ -16,58 +16,49 @@ protected:
 /*
   Constructor Tests & Tuple type checks
 */
+TEST(TupleTest, TupleConstructor){
+  const auto t1 = new Tuple(3.4, -2.3, 1.2, 0.0);
+
+  EXPECT_FLOAT_EQ(t1->x(), 3.4);
+  EXPECT_FLOAT_EQ(t1->y(), -2.3);
+  EXPECT_FLOAT_EQ(t1->z(), 1.2);
+  EXPECT_FLOAT_EQ(t1->w(), 0);
+
+  const auto t2 = new Tuple(-29.92, 45.13, 0.2, 1.0);
+
+  EXPECT_FLOAT_EQ(t2->x(), -29.92);
+  EXPECT_FLOAT_EQ(t2->y(), 45.13);
+  EXPECT_FLOAT_EQ(t2->z(), 0.2);
+  EXPECT_FLOAT_EQ(t2->w(), 1.0);
+}
+
 TEST(TupleTest, Test_IsPoint_IsVector)
 {
-  const auto tuplePoint = new Tuple(3.4, -2.3, 1.2, 1.0);
+  const auto tuplePoint = Tuple(3.4, -2.3, 1.2, 1.0);
 
-  EXPECT_FLOAT_EQ(tuplePoint->x(), 3.4);
-  EXPECT_FLOAT_EQ(tuplePoint->y(), -2.3);
-  EXPECT_FLOAT_EQ(tuplePoint->z(), 1.2);
-  EXPECT_FLOAT_EQ(tuplePoint->w(), 1.0);
+  EXPECT_FLOAT_EQ(tuplePoint.x(), 3.4);
+  EXPECT_FLOAT_EQ(tuplePoint.y(), -2.3);
+  EXPECT_FLOAT_EQ(tuplePoint.z(), 1.2);
+  EXPECT_FLOAT_EQ(tuplePoint.w(), 1.0);
 
-  EXPECT_TRUE(tuplePoint->IsPoint());
-  EXPECT_FALSE(tuplePoint->IsVector());
+  EXPECT_TRUE(tuplePoint.IsPoint());
+  EXPECT_FALSE(tuplePoint.IsVector());
 
-  const auto tupleVec = new Tuple(3.4, -2.3, 1.2, 0.0);
+  const auto tupleVec = Tuple(3.4, -2.3, 1.2, 0.0);
 
-  EXPECT_FLOAT_EQ(tupleVec->x(), 3.4);
-  EXPECT_FLOAT_EQ(tupleVec->y(), -2.3);
-  EXPECT_FLOAT_EQ(tupleVec->z(), 1.2);
-  EXPECT_FLOAT_EQ(tupleVec->w(), 0.0);
+  EXPECT_FLOAT_EQ(tupleVec.x(), 3.4);
+  EXPECT_FLOAT_EQ(tupleVec.y(), -2.3);
+  EXPECT_FLOAT_EQ(tupleVec.z(), 1.2);
+  EXPECT_FLOAT_EQ(tupleVec.w(), 0.0);
 
-  EXPECT_TRUE(tupleVec->IsVector());
-  EXPECT_FALSE(tupleVec->IsPoint());
+  EXPECT_TRUE(tupleVec.IsVector());
+  EXPECT_FALSE(tupleVec.IsPoint());
 }
 
-TEST(TupleTest, Test_CreatePoint)
-{
-  const auto point = Point(1.1, 2.2, 3.3);
 
-  EXPECT_FLOAT_EQ(point.x(), 1.1);
-  EXPECT_FLOAT_EQ(point.y(), 2.2);
-  EXPECT_FLOAT_EQ(point.z(), 3.3);
-  EXPECT_FLOAT_EQ(point.w(), 1.0);
-
-  EXPECT_TRUE(point.IsPoint());
-  EXPECT_FALSE(point.IsVector());
-}
-
-TEST(TupleTest, Test_CreateVector)
-{
-  const auto vec = Point(1.1, 2.2, 3.3);
-
-  EXPECT_FLOAT_EQ(vec.x(), 1.1);
-  EXPECT_FLOAT_EQ(vec.y(), 2.2);
-  EXPECT_FLOAT_EQ(vec.z(), 3.3);
-  EXPECT_FLOAT_EQ(vec.w(), 1.0);
-
-  EXPECT_TRUE(vec.IsPoint());
-  EXPECT_FALSE(vec.IsVector());
-}
 /*
-  Operator Testing
-*/
-
+ * Operator Testing
+ */
 TEST(TupleTest, TestAdd)
 {
   const auto tuple1 = Tuple(3.4, -2.3, 1.2, 0.0);
@@ -94,10 +85,10 @@ TEST(TupleTest, TestSubtract)
 
 TEST(TupleTest, SubVectorFromZeroVector)
 {
-  const auto zero = Vector(0, 0, 0);
-  const auto v = Vector(1, -2, 3);
+  const auto zero = Tuple(0, 0, 0, 0);
+  const auto v = Tuple(1, -2, 3, 0);
 
-  ASSERT_TRUE(zero - v == Vector(-1, 2, -3));
+  ASSERT_TRUE(zero - v == Tuple(-1, 2, -3, 0));
 }
 
 TEST(TupleTest, TestNegate)
