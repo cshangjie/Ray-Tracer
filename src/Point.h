@@ -8,10 +8,6 @@ class Point : public Tuple {
   Point() {};
   Point(float x, float y, float z);
   ~Point() = default;
-
-  float x() const { return this->x(); }
-  float y() const { return this->y(); }
-  float z() const { return this->z(); }
 };
 
 #endif /* RT_POINT_H_ */
